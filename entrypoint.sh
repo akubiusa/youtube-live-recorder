@@ -42,8 +42,13 @@ MOVE_DIR="/data/${TARGET}/"
 
 if [[ ! -f ${RECORDED_FILE} ]]; then
   echo "No recorded file found, add all videos to the recorded file"
-  yt-dlp -q --flat-playlist --js-runtimes deno --print-to-file id ids.txt "${URL}"
-  xargs -I {} echo youtube {} < ids.txt >> "${RECORDED_FILE}"
+  : > ids.txt
+  yt-dlp -q --flat-playlist --js-runtimes deno --print-to-file id ids.txt "${URL}" ||
+    echo "Could not list videos for the bootstrap (the channel may not be live); starting with an empty archive"
+  if [[ -s ids.txt ]]; then
+    xargs -I {} echo youtube {} < ids.txt >> "${RECORDED_FILE}"
+  fi
+  touch "${RECORDED_FILE}"
 fi
 
 # shellcheck disable=SC2312
