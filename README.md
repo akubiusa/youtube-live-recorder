@@ -27,7 +27,7 @@ Either `CHANNEL` or `PLAYLIST` is required. If both are set, `PLAYLIST` is used.
 - `TITLE_FILTER` (optional): Passed to `yt-dlp --match-title`: only videos whose title matches this regular expression (case-insensitive search) are downloaded. The value is word-split by the shell, so it must not contain whitespace.
 - `OUTPUT_FILENAME_PATTERN` (optional): The `yt-dlp` output template for the file name, for example `%(title)s-%(id)s.%(ext)s` to avoid overwriting recordings with the same title. Defaults to `%(title)s.%(ext)s`.
 
-On the first start (when `data/recorded/<TARGET>` does not exist), the video IDs that yt-dlp lists for the target URL are added to that download archive and are not downloaded. For `PLAYLIST` this is every video currently in the playlist; for `CHANNEL` the watched URL is the channel's `/live` page, so normally only the stream that is live at that moment is archived (if the channel is not live, nothing is archived).
+On the first start (when `data/recorded/<TARGET>` does not exist), the video IDs that yt-dlp lists for the target URL are added to that download archive and are not downloaded. For `PLAYLIST` this is every video currently in the playlist; for `CHANNEL` the watched URL is the channel's `/live` page, so only the stream that is live at that moment is archived. If the channel is not live, an empty archive is created and nothing is archived.
 
 ## Warning / Disclaimer
 
